@@ -15,6 +15,16 @@ public class Address {
     public final String value;
     private boolean isPrivate;
 
+    private Block block;
+    private Unit unit;
+    private PostalCode postalCode;
+    private Street street;
+
+    private static final int INDEX_OF_BLOCK = 0;
+    private static final int INDEX_OF_STREET = 1;
+    private static final int INDEX_OF_UNIT = 2;
+    private static final int INDEX_OF_POSTALCODE = 3;
+
     /**
      * Validates given address.
      *
@@ -26,9 +36,24 @@ public class Address {
         if (!isValidAddress(trimmedAddress)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
+        splittingAddressIntoFourDifferentFormat(trimmedAddress);
         this.value = trimmedAddress;
     }
 
+
+    public void splittingAddressIntoFourDifferentFormat (String trimmedAddress) throws IllegalValueException {
+
+        String[] theFourDifferentFormat = trimmedAddress.split(", ");
+        if(theFourDifferentFormat.length != 4){
+            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+        }
+        block = new Block(theFourDifferentFormat[INDEX_OF_BLOCK]);
+        street = new Street(theFourDifferentFormat[INDEX_OF_STREET]);
+        unit = new Unit(theFourDifferentFormat[INDEX_OF_UNIT]);
+        postalCode = new PostalCode(theFourDifferentFormat[INDEX_OF_POSTALCODE]);
+
+
+    }
     /**
      * Returns true if a given string is a valid person address.
      */
