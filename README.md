@@ -25,5 +25,6 @@ The full list of contributors for se-edu can be found [here](https://se-edu.gith
 
 #Changes
 * Encapsulate CommandResult class members.
-* Split Address into more classes
-* Handle 'file readonly' situation
+* Split Address into more classes.
+* Handle 'file readonly' situation.
+* Tests updated.
