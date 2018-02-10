@@ -10,10 +10,10 @@ public class Unit {
     public Unit(String Unit){
         unit = Unit;
     }
-    public String getUnitExample(){
+    public String getUnit(){
         return unit;
     }
-    public static void setUnitExample(String Unit) {
+    public static void setUnit(String Unit) {
         unit = Unit;
     }
 }

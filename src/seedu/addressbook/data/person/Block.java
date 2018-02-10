@@ -11,11 +11,11 @@ public class Block {
         block = Block;
     }
 
-    public String getBlockExample(){
+    public String getBlock(){
         return block;
     }
 
-    public static void setBlockExample(String Block) {
+    public static void setBlock(String Block) {
         block = Block;
     }
 }
