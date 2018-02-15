@@ -67,7 +67,7 @@ Examples:
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
 ### Deleting a person : `delete`
-Deletes the specified person from the address book and lists out the people remaining in the address book. Irreversible.<br>
+Deletes the specified person from the address book and lists out the people remaining in the address book after deletion. Irreversible.<br>
 Format: `delete INDEX`
 
 > Deletes the person at the specified `INDEX`. 
