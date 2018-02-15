@@ -14,6 +14,7 @@ import seedu.addressbook.storage.StorageFile;
 import seedu.addressbook.storage.StorageFile.InvalidStorageFilePathException;
 import seedu.addressbook.storage.StorageFile.StorageOperationException;
 import seedu.addressbook.ui.TextUi;
+import seedu.addressbook.ui.Formatter;
 
 
 /**
@@ -28,6 +29,7 @@ public class Main {
     private TextUi ui;
     private StorageFile storage;
     private AddressBook addressBook;
+    private Formatter formatter;
 
     /** The list of person shown to the user most recently.  */
     private List<? extends ReadOnlyPerson> lastShownList = Collections.emptyList();
@@ -55,10 +57,11 @@ public class Main {
             this.ui = new TextUi();
             this.storage = initializeStorage(launchArgs);
             this.addressBook = storage.load();
-            ui.showWelcomeMessage(VERSION, storage.getPath());
+            this.formatter = new Formatter();
+            formatter.showWelcomeMessage(VERSION, storage.getPath());
 
         } catch (InvalidStorageFilePathException | StorageOperationException e) {
-            ui.showInitFailedMessage();
+            formatter.showInitFailedMessage();
             /*
              * ==============NOTE TO STUDENTS=========================================================================
              * We are throwing a RuntimeException which is an 'unchecked' exception. Unchecked exceptions do not need
@@ -74,7 +77,7 @@ public class Main {
 
     /** Prints the Goodbye message and exits. */
     private void exit() {
-        ui.showGoodbyeMessage();
+        formatter.showGoodbyeMessage();
         System.exit(0);
     }
 
