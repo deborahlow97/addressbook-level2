@@ -4,6 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.addressbook.commands.AddCommand;
+import seedu.addressbook.commands.DeleteCommand;
+import seedu.addressbook.commands.ListCommand;
 import seedu.addressbook.commands.Command;
 import seedu.addressbook.commands.CommandResult;
 import seedu.addressbook.commands.ExitCommand;
@@ -78,7 +81,11 @@ public class Main {
         System.exit(0);
     }
 
-    /** Reads the user command and executes it, until the user issues the exit command.  */
+    /**
+     * Reads the user command and executes it, until the user issues the exit command.
+     * If user enters user command "add" or "delete, list command will automatically be called
+     * and executed after user command is executed.
+     */
     private void runCommandLoopUntilExitCommand() {
         Command command;
         do {
@@ -87,8 +94,20 @@ public class Main {
             CommandResult result = executeCommand(command);
             recordResult(result);
             ui.showResultToUser(result);
-
+            if (command instanceof AddCommand || command instanceof DeleteCommand) {
+                listOutAllPerson();
+            }
         } while (!ExitCommand.isExit(command));
+    }
+
+    /**
+     * Executes list command when called.
+     */
+    private void listOutAllPerson() {
+        Command commandList = new Parser().parseCommand(ListCommand.COMMAND_WORD);
+        CommandResult ListResult = executeCommand(commandList);
+        recordResult(ListResult);
+        ui.showResultToUser(ListResult);
     }
 
     /** Updates the {@link #lastShownList} if the result contains a list of Persons. */
