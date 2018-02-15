@@ -8,6 +8,7 @@ import java.util.Set;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
+import seedu.addressbook.common.Utils;
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -36,30 +37,12 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Set<String> lowerCaseKeyword = keywordToLowerCaseSet(keywords);
+        Set<String> lowerCaseKeyword = Utils.keywordToLowerCaseSet(keywords);
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(lowerCaseKeyword);
         return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
     }
 
-    /**
-     * This method converts the set of keywords to a set of lower case strings and returns it.
-     * @return set of lower case string
-     */
-    private Set<String> keywordToLowerCaseSet(Set<String> keywords) {
-        Set<String> lowerCaseKeywords = new HashSet<>();
-        for(String key : keywords) {
-            lowerCaseKeywords.add(key.toLowerCase());
-        }
-        return lowerCaseKeywords;
-    }
 
-    private List<String> keywordToLowerCaseList(List<String> keywords) {
-        //List<String> lowerCaseKeywords = new ArrayList<>();
-        for(int size = 0; size < keywords.size(); size++) {
-            keywords.set(size, keywords.get(size).toLowerCase());
-        }
-        return keywords;
-    }
     /**
      * Retrieves all persons in the address book whose names contain some of the specified keywords.
      *
@@ -69,7 +52,8 @@ public class FindCommand extends Command {
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(keywordToLowerCaseList(person.getName().getWordsInName()));
+            final Set<String> wordsInName = new HashSet<>(Utils.keywordToLowerCaseList(person.
+                    getName().getWordsInName()));
             if (!Collections.disjoint(wordsInName, keywords)) {
                 matchedPersons.add(person);
             }
